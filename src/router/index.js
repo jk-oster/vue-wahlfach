@@ -23,6 +23,7 @@ const router = createRouter({
       path: '/chat',
       name: 'chat',
       component: ChatView,
+      // TODO make sure user can't enter if no current user is logged in
     },
   ],
 })
