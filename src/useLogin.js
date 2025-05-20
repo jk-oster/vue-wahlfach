@@ -20,10 +20,9 @@ export function useLogin() {
         pb.authStore.clear();
     }
 
-    // TODO enable registering as a user
+    // TODO add registering as a user
     const register = () => {
         // create user in PB -> triggers E-Mail verification
-        // Save user to currentUser.value
     }
 
     // TODO enable staying logged in

@@ -21,6 +21,7 @@ export function useChats() {
             // load all messages of this chat into our message list
             messages.value = await pb.collection('messages').getFullList({
                 filter: `chat = "${chatId}"`,
+                // TODO expand user
             });
         }
     }
@@ -29,7 +30,7 @@ export function useChats() {
     // TODO edit chats (add/remove users, rename,...)
 
     const fetchChats = async () => {
-        chats.value = await pb.collection('chats').getFullList();
+        chats.value = await pb.collection('chats').getFullList(); // TODO expand users
     }
 
     onMounted(async () => {
@@ -41,11 +42,11 @@ export function useChats() {
             if (e.action === 'create' && e.record.chat === currentChat.value.id) {
                 messages.value = [...messages.value, e.record]
             }
-            // TODO send notifications
+            // TODO send notifications when receiving a message
             // message is in one of the not active user chats -> send notification / elso do nothing
-        });
+        }, { /* TODO expand user */});
 
-        // TODO send notification when added to a chat
+        // TODO send notification when added to a chat / chat has been updated
         // also subscribe to chats to receive notification when being added to a chat
         // if chat is created / updated and has user as member add it to chats list and notify
     });
