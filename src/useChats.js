@@ -5,11 +5,12 @@ import {useWebNotification} from "@vueuse/core";
 
 // Make variables Singletons to not create multiple storages for e.g. currrentChat
 // Move them out of the scope of the composable to make them singletons automatically based on JS import/export
-const chats = ref([]);
+const chats = ref(null);
 const currentChat = ref(null);
 const messages = ref([]);
 
 export function useChats() {
+
 
     // Use the existing Login/Auth functionality
     const {currentUser} = useLogin();
@@ -18,6 +19,8 @@ export function useChats() {
         const foundChat = chats.value.find(chat => chat.id === chatId);
         if(foundChat) {
             currentChat.value = foundChat;
+
+            localStorage.currentChat = JSON.stringify(foundChat);
 
             // load all messages of this chat into our message list
             messages.value = await pb.collection('messages').getFullList({
@@ -45,8 +48,16 @@ export function useChats() {
     }
 
     const fetchChats = async () => {
-        chats.value = await pb.collection('chats').getFullList(); // TODO expand users
+        chats.value = await pb.collection('chats').getFullList({
+            expand: 'members'
+        });
         console.log('Chats fetched: ', chats.value);
+
+        const savedCurrentChat = JSON.parse(localStorage.currentChat ?? 'null') ?? null;
+        if (savedCurrentChat) {
+            await setChat(savedCurrentChat.id);
+            console.log('Loaded last current chat')
+        }
     }
 
     onMounted(async () => {
