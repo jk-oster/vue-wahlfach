@@ -1,9 +1,15 @@
-import {ref} from "vue";
+import {computed, readonly, ref} from "vue";
 import {pb} from '@/pocketbase.js'
 
 // Make variable Singleton to not create multiple storages for currentUser
 // Move it out of the scope of the composable to make it a singleton automatically based on JS import/export
 const currentUser = ref(null);
+
+// Check if the user is still logged in through pb.authStore / token saved in localStorage
+// If yes set the saved user to be the current user
+if (!currentUser.value && pb.authStore.isValid && pb.authStore.record) {
+    currentUser.value = pb.authStore.record;
+}
 
 export function useLogin() {
 
@@ -13,25 +19,28 @@ export function useLogin() {
             password,
         );
         currentUser.value = data.record;
+        console.log('User logged in', currentUser.value);
     }
 
     const logout = () => {
         currentUser.value = null;
         pb.authStore.clear();
+        console.log('User logged out', currentUser.value);
     }
 
-    // TODO add registering as a user
     const register = () => {
+        // TODO add registering as a user
         // create user in PB -> triggers E-Mail verification
+        alert('register: Implement me')
     }
 
-    // TODO enable staying logged in
-    // upon mounting this composable check if the user is still logged in through pb.authStore / token saved in localStorage
-    // If yes set the saved user to be the current user
+    const isLoggedIn = computed(() => !!currentUser.value);
 
     return {
-        currentUser,
+        isLoggedIn,
+        currentUser: readonly(currentUser),
         login,
-        logout
+        logout,
+        register,
     }
 }
