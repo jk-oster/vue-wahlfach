@@ -3,6 +3,7 @@ import {ref, computed, watch} from 'vue'
 import {usePageTitle} from "@/usePageTitle.js";
 import {useActivePage} from "@/useActivePage.js";
 import Dock from "@/components/Dock.vue";
+import AppNavigation from "@/components/layouts/AppNavigation.vue";
 
 const list = ref([
   { id: 1, name: 'Vue.js' },
@@ -52,23 +53,25 @@ watch(isActive, () => {
 
 <template>
 
-  <h1 :class="search ? 'red' : ''">Hello</h1>
+  <AppNavigation>
 
-  <input type="text" v-model="search" placeholder="Search mit automatischem Bi-Directional Data-Binding..." />
-  <input type="text" :value="search" @input="setSearch" placeholder="Suche mit manuellem Bi-Directional Data-Binding..." />
+    <h1 :class="search ? 'red' : ''">Hello</h1>
 
-  <ul>
-    <li v-for="item in filteredItems" :key="item.id">
-      {{ item.name }} <button @click="deleteItem(item.id)">Delete</button>
-    </li>
+    <input type="text" v-model="search" placeholder="Search mit automatischem Bi-Directional Data-Binding..." />
+    <input type="text" :value="search" @input="setSearch" placeholder="Suche mit manuellem Bi-Directional Data-Binding..." />
 
-    <li v-if="filteredItems.length === 0">No {{ filteredItems.length }} items found of {{ list.length }}</li>
-  </ul>
+    <ul>
+      <li v-for="item in filteredItems" :key="item.id">
+        {{ item.name }} <button @click="deleteItem(item.id)">Delete</button>
+      </li>
 
-  <input type="text" v-model="newItemName" placeholder="Add new item..." />
-  <button @click="addNewItem">Add</button>
+      <li v-if="filteredItems.length === 0">No {{ filteredItems.length }} items found of {{ list.length }}</li>
+    </ul>
 
-  <Dock></Dock>
+    <input type="text" v-model="newItemName" placeholder="Add new item..." />
+    <button @click="addNewItem">Add</button>
+
+  </AppNavigation>
 
 </template>
 

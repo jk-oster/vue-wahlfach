@@ -43,7 +43,7 @@ function handleSendMessage() {
       </button>
     </div>
   </div>
-  <div class="overflow-y-auto h-100 p-4 flex-grow flex flex-col gap-2">
+  <div class="overflow-y-auto h-90 p-4 flex-grow flex flex-col gap-2">
 
     <ul v-if="currentChat">
       <template v-if="messages.length > 0">

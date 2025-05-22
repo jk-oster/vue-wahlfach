@@ -63,6 +63,7 @@ watch(() => props.open, () => {
       </slot>
     </div>
   </dialog>
+
 </template>
 
 <style scoped>

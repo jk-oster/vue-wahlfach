@@ -1,15 +1,20 @@
 <script setup>
 
 import Dock from "@/components/Dock.vue";
+import AppNavigation from "@/components/layouts/AppNavigation.vue";
 
 </script>
 
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
 
-  <Dock></Dock>
+  <AppNavigation>
+
+    <div class="about">
+      <h1>This is an about page</h1>
+    </div>
+
+  </AppNavigation>
+
 </template>
 
 <style>
