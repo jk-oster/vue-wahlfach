@@ -1,14 +1,17 @@
 <script setup>
 import {ref} from "vue";
 import {useLogin} from "@/useLogin.js";
+import { useRouter } from 'vue-router'
 
+const router = useRouter();
 const {login} = useLogin();
 
 const email = ref('');
 const password = ref('');
 
-function handleLogin() {
-  login(email.value, password.value);
+async function handleLogin() {
+  await login(email.value, password.value);
+  await router.push('/chat');
 }
 </script>
 
@@ -38,9 +41,7 @@ function handleLogin() {
           </label>
         </div>
         <div class="card-actions justify-center">
-          <RouterLink to="/chat" class="btn btn-active btn-primary w-full">
-            <button @click="handleLogin" v-bind:disabled="!email || !password">Login</button>
-          </RouterLink>
+            <button class="btn btn-active btn-primary w-full" @click="handleLogin" v-bind:disabled="!email || !password">Login</button>
         </div>
       </div>
     </div>
