@@ -1,37 +1,60 @@
 <script setup>
 
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
-defineProps({
+const props = defineProps({
+  showOpenBtn: {
+    type: Boolean,
+    default: true,
+  },
   btnClass: {
     type: String,
-    class: 'btn'
+    default: 'btn'
   },
   btnText: {
     type: String,
-    class: 'Open Modal'
+    default: 'Open Modal'
+  },
+  open: {
+    type: Boolean,
+    default: false,
   }
 });
+
+const emit = defineEmits(['open', 'close']);
 
 const dialog = ref(null);
 
 function handleOpen() {
   dialog.value?.showModal();
+  emit('open');
 }
+
+watch(() => props.open, () => {
+  if (props.open) {
+    handleOpen();
+  } else {
+    dialog.value?.close();
+  }
+});
 
 </script>
 
 <template>
-  <button :class="btnClass" @click="handleOpen">
+
+  <!-- https://daisyui.com/components/modal/#dialog-modal-with-a-close-button-at-corner -->
+
+  <button v-if="showOpenBtn" :class="btnClass" @click="handleOpen">
     <slot name="openBtn">
       {{ btnText }}
     </slot>
   </button>
-  <dialog ref="dialog" class="modal">
+
+  <dialog ref="dialog" class="modal" @close="emit('close')">
     <div class="modal-box">
       <slot name="closeBtn">
         <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <button title="Close Modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
       </slot>
       <slot>

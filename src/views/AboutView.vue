@@ -1,7 +1,15 @@
+<script setup>
+
+import Dock from "@/components/Dock.vue";
+
+</script>
+
 <template>
   <div class="about">
     <h1>This is an about page</h1>
   </div>
+
+  <Dock></Dock>
 </template>
 
 <style>

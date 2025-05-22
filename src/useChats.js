@@ -47,6 +47,19 @@ export function useChats() {
         alert('editChat: implement me!');
     }
 
+    const sendMessage = async (newMessageText) => {
+        const newMessage = {
+            text: newMessageText,
+            user: currentUser.value?.id,
+            chat: currentChat.value?.id,
+        }
+        await pb.collection('messages').create(newMessage);
+        console.log('Message sent: ', newMessage);
+
+        // messages.value.push(newMessage); // ❌ using push vue cannot track the change of the array!
+        // messages.value = [...messages.value, newMessage]; // ✅ use this syntax so vue reactivity works
+    }
+
     const fetchChats = async () => {
         chats.value = await pb.collection('chats').getFullList({
             expand: 'members'
@@ -123,20 +136,6 @@ export function useChats() {
             expand: 'members'
         });
     });
-
-    const sendMessage = async (newMessageText) => {
-        const newMessage = {
-            text: newMessageText,
-            user: currentUser.value?.id,
-            chat: currentChat.value?.id,
-        }
-
-        await pb.collection('messages').create(newMessage);
-        console.log('Message sent: ', newMessage);
-
-        // messages.value.push(newMessage); // ❌ using push vue cannot track the change of the array!
-        // messages.value = [...messages.value, newMessage]; // ✅ use this syntax so vue reactivity works
-    }
 
     return {
         chats: readonly(chats),

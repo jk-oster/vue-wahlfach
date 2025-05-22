@@ -9,6 +9,7 @@ const currentUser = ref(null);
 // If yes set the saved user to be the current user
 if (!currentUser.value && pb.authStore.isValid && pb.authStore.record) {
     currentUser.value = pb.authStore.record;
+    console.log('Logged in user loaded from localStorage: ', currentUser.value)
 }
 
 export function useLogin() {

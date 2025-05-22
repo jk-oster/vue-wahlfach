@@ -15,7 +15,14 @@ function handleLogin() {
 <template>
 
   <section class="flex justify-center items-center h-full">
+
+    <!-- https://daisyui.com/components/card/ -->
     <div class="card w-96 bg-base-100 shadow-xl mt-20 mb-20">
+      <figure>
+        <img
+            src="https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Green Chat Bubble" />
+      </figure>
       <div class="card-body">
         <h2 class="card-title text-2xl font-bold">KWM Chat Login!</h2>
         <div class="flex items-center flex-col gap-2 mt-2 w-full">

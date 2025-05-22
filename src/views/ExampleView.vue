@@ -2,6 +2,7 @@
 import {ref, computed, watch} from 'vue'
 import {usePageTitle} from "@/usePageTitle.js";
 import {useActivePage} from "@/useActivePage.js";
+import Dock from "@/components/Dock.vue";
 
 const list = ref([
   { id: 1, name: 'Vue.js' },
@@ -66,6 +67,8 @@ watch(isActive, () => {
 
   <input type="text" v-model="newItemName" placeholder="Add new item..." />
   <button @click="addNewItem">Add</button>
+
+  <Dock></Dock>
 
 </template>
 

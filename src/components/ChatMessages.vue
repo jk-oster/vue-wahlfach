@@ -45,8 +45,10 @@ function handleSendMessage() {
   </div>
   <div class="overflow-y-auto h-100 p-4 flex-grow flex flex-col gap-2">
 
-    <ul v-if="messages.length && currentChat">
-      <Message v-for="message in messages" :key="message.id" :currentUser="currentUser" :message="message"></Message>
+    <ul v-if="currentChat">
+      <template v-if="messages.length > 0">
+        <Message v-for="message in messages" :key="message.id" :currentUserId="currentUser?.id ?? ''" :message="message"></Message>
+      </template>
       <li v-if="currentChat && messages.length === 0" class="chat chat-start">
         <div class="chat-bubble">No messages yet. Start the conversation!</div>
       </li>
@@ -54,14 +56,13 @@ function handleSendMessage() {
     <div v-else-if="!currentChat">
       No chat selected
     </div>
-    <div v-else-if="currentChat && messages.length <= 0">
-      No messages yet - be the first one ;)
-    </div>
 
   </div>
   <div class="flex justify-between items-center gap-2 p-4">
-    <textarea type="text" v-model="newMessageText" placeholder="Type a message..." class="textarea flex-grow"
-              :disabled="!currentChat"></textarea>
-    <button @click="handleSendMessage" class="btn btn-ghost">Send</button>
+    <label class="sr-only" for="message">Message Text</label>
+    <textarea id="message" type="text" v-model="newMessageText" placeholder="Type a message..." class="textarea flex-grow"
+              :disabled="!currentChat">
+    </textarea>
+    <button @click="handleSendMessage" :disabled="!currentChat" class="btn btn-ghost">Send Message</button>
   </div>
 </template>
