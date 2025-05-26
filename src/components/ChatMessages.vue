@@ -5,6 +5,7 @@ import {useChats} from "@/useChats.js";
 import {getFileUrl} from "@/pocketbase.js";
 import {formatDate} from "@/format.js";
 import Message from "@/components/Message.vue";
+add info modalimport Modal from "@/components/Modal.vue";
 
 const {currentUser} = useLogin();
 const {currentChat, messages, sendMessage} = useChats();
@@ -30,17 +31,40 @@ function handleSendMessage() {
 
     <div class="flex-grow">
       <h2 class="text-lg font-bold">{{ currentChat.name }}</h2>
-      <p class="opacity-50 text-sm">Created at: {{ formatDate(currentChat.created) }}, Updated at: {{
-        formatDate(currentChat.updated) }}</p>
+      <p class="opacity-50 text-sm">
+        Created at: {{ formatDate(currentChat.created) }}, Updated at: {{ formatDate(currentChat.updated) }}
+      </p>
     </div>
     <div>
       <button class="btn btn-ghost mr-2" @click="() => console.log('TODO')">
         Add Member
       </button>
 
-      <button class="btn btn-info" @click="() => console.log('TODO')">
-        Info
-      </button>
+      <Modal btn-class="btn btn-info" btn-text="Info">
+        <div class="flex items-center">
+          <img class="size-10 rounded-box mr-2" :src="getFileUrl('chats', currentChat.id, currentChat.image)" alt="Group Chat Image">
+          <div>
+            <h2 class="text-lg font-bold">{{ currentChat.name }}</h2>
+            <p class="opacity-50 text-sm">
+              Created at: {{ formatDate(currentChat.created) }}, Updated at: {{ formatDate(currentChat.updated) }}
+            </p>
+          </div>
+        </div>
+        <ul class="list rounded-box border border-base-300 mt-4">
+          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+            Members
+          </li>
+          <li class="list-row" v-for="member in currentChat?.expand?.members" :key="member.id">
+            <div>
+              <img class="size-10 rounded-box" :src="getFileUrl('users', member.id, member.avatar)" alt="Member profile image">
+            </div>
+            <div>
+              <div>{{ member.name ?? member.email ?? 'Anonymous' }}</div>
+              <div class="text-xs uppercase font-semibold opacity-60">{{ formatDate(member.created) }}</div>
+            </div>
+          </li>
+        </ul>
+      </Modal>
     </div>
   </div>
   <div class="overflow-y-auto h-90 p-4 flex-grow flex flex-col gap-2">
@@ -63,6 +87,6 @@ function handleSendMessage() {
     <textarea id="message" type="text" v-model="newMessageText" placeholder="Type a message..." class="textarea flex-grow"
               :disabled="!currentChat">
     </textarea>
-    <button @click="handleSendMessage" :disabled="!currentChat" class="btn btn-ghost">Send Message</button>
+    <button @click="handleSendMessage" :disabled="!currentChat" class="btn btn-accent">Send Message</button>
   </div>
 </template>
