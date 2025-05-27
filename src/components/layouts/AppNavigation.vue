@@ -13,10 +13,14 @@ import Navbar from "@/components/Navbar.vue";
     </slot>
   </header>
 
-  <main class="max-w-[1200px] p-5 mx-auto mt-0 md:mt-16 mb-16 md:mb-0">
-    <slot>
-      Your content goes here 😉
-    </slot>
+  <main class="max-w-[1200px] mx-auto min-h-screen">
+    <div class="pt-0 md:pt-16 pb-16 md:pb-0 min-h-screen">
+      <div class="p-5 h-full">
+        <slot>
+          Your content goes here 😉
+        </slot>
+      </div>
+    </div>
   </main>
 
   <footer>
