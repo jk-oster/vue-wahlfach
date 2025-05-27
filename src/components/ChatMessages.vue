@@ -5,7 +5,7 @@ import {useChats} from "@/useChats.js";
 import {getFileUrl} from "@/pocketbase.js";
 import {formatDate} from "@/format.js";
 import Message from "@/components/Message.vue";
-add info modalimport Modal from "@/components/Modal.vue";
+import Modal from "@/components/Modal.vue";
 
 const {currentUser} = useLogin();
 const {currentChat, messages, sendMessage} = useChats();
