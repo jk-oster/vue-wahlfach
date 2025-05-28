@@ -22,6 +22,18 @@ npm install
 npm run dev
 ```
 
+Open the frontend through the link provided in the command output (usually [https://loaclhost:5173/](https://loaclhost:5173/)).
+
+Download `pocketbase.exe` from [pocketbase.io](https://pocketbase.io/docs/) and copy it 
+to the project folder. Run the following command to start pocketbase:
+
+```sh
+./pocketbase.exe serve
+```
+
+Create a user (email + password) in the `users` pocket base collection 
+and log in with this test-user in the frontend.
+
 ### Compile and Minify for Production
 
 ```sh
