@@ -22,6 +22,15 @@ npm install
 npm run dev
 ```
 
+Download `pocketbase.exe` and copy it to the project folder
+Run the following command to start pocketbase:
+```sh
+./pocketbase.exe serve
+```
+
+Create a user (email + password) in the `users` pocket base collection 
+and log in with this test-user in the frontend.
+
 ### Compile and Minify for Production
 
 ```sh
