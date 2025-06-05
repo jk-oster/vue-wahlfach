@@ -39,3 +39,17 @@ and log in with this test-user in the frontend.
 ```sh
 npm run build
 ```
+
+### Project Overview
+
+- The entrypoint for the application is the ``src/main.js`` file.
+  - This file initializes the Vue Applications
+  - The root Vue component is the ``src/App.vue`` file.
+    - This file usually shows the content of ``<RouterView>`` -> the content of the current page the user is on
+    - New navigate able pages can be added by creating View Components in the ``src/views`` folder
+    - Each navigable View needs to be added as a route to the router in ``src/router/index.js``
+  - Data processing and business logic should be encapsulated in [composable]()
+    - composable always start with the naming convention ``use<Xxxxx>.js``
+    - composable need to `return` the functionality they need to share across the application
+    - composable manage reactive state that needs to be accessed or changed across different components
+    - ...
